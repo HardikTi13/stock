@@ -37,39 +37,27 @@ function AppRoutes() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/chart"
-        element={
-          <ProtectedRoute>
-            <Chart />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/portfolio"
-        element={
-          <ProtectedRoute>
-            <Portfolio />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/news"
-        element={
-          <ProtectedRoute>
-            <News />
-          </ProtectedRoute>
-        }
-      />
-      <Route path="/" element={<Navigate to="/dashboard" />} />
+      <Route path="/dashboard" element={
+        <ProtectedRoute>
+          <Dashboard />
+        </ProtectedRoute>
+      } />
+      <Route path="/chart" element={
+        <ProtectedRoute>
+          <Chart />
+        </ProtectedRoute>
+      } />
+      <Route path="/portfolio" element={
+        <ProtectedRoute>
+          <Portfolio />
+        </ProtectedRoute>
+      } />
+      <Route path="/news" element={
+        <ProtectedRoute>
+          <News />
+        </ProtectedRoute>
+      } />
+      <Route path="/" element={<Navigate to="/login" />} />
     </Routes>
   );
 }
