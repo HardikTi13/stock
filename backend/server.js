@@ -7,47 +7,40 @@ require('dotenv').config();
 
 const marketRoutes = require('./routes/markets');
 const portfolioRoutes = require('./routes/portfolio');
-const leaderboardRoutes = require('./routes/leaderboard');
 
 const app = express();
 const server = http.createServer(app);
 
-// CORS configuration - allow multiple origins in development
+// CORS configuration - allow multiple origins
 const allowedOrigins = process.env.CORS_ORIGIN 
   ? process.env.CORS_ORIGIN.split(',')
   : ['http://localhost:3000', 'http://localhost:3002', 'http://localhost:3001'];
 
-// Socket.IO setup with CORS
-const io = socketIo(server, {
-  cors: {
-    origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps or curl requests)
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'development') {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    methods: ['GET', 'POST'],
-    credentials: true
-  }
-});
-
-// Middleware
-app.use(helmet());
-app.use(cors({
+const corsOptions = {
   origin: (origin, callback) => {
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'development') {
+    // Allow any origin in development
+    if (process.env.NODE_ENV === 'development') return callback(null, true);
+    // Check allowed origins in production
+    if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
     }
   },
+  methods: ['GET', 'POST'],
   credentials: true
-}));
+};
+
+// Socket.IO setup with CORS
+const io = socketIo(server, {
+  cors: corsOptions
+});
+
+// Middleware
+app.use(helmet());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -57,7 +50,6 @@ app.set('io', io);
 // Routes
 app.use('/api/markets', marketRoutes);
 app.use('/api/portfolio', portfolioRoutes);
-app.use('/api/leaderboard', leaderboardRoutes);
 
 // Health check
 app.get('/health', (req, res) => {

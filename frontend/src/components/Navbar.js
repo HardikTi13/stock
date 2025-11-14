@@ -39,9 +39,6 @@ function Navbar() {
             <Button color="inherit" component={Link} to="/portfolio">
               Portfolio
             </Button>
-            <Button color="inherit" component={Link} to="/leaderboard">
-              Leaderboard
-            </Button>
             <Button color="inherit" onClick={handleLogout}>
               Logout
             </Button>

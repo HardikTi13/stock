@@ -6,7 +6,6 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Dashboard from './pages/Dashboard';
 import Chart from './pages/Chart';
 import Portfolio from './pages/Portfolio';
-import Leaderboard from './pages/Leaderboard';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Navbar from './components/Navbar';
@@ -58,14 +57,6 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Portfolio />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/leaderboard"
-        element={
-          <ProtectedRoute>
-            <Leaderboard />
           </ProtectedRoute>
         }
       />

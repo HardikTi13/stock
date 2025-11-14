@@ -10,12 +10,16 @@ services:
       - ./backend/.env
     environment:
       - NODE_ENV=production
+      - PORT=3001
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:3001/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
       interval: 30s
       timeout: 3s
       retries: 3
+      start_period: 40s
+    networks:
+      - app-network
 
   frontend:
     build: ./frontend
@@ -28,4 +32,10 @@ services:
       - REACT_APP_API_URL=http://localhost:3001
       - REACT_APP_SOCKET_URL=http://localhost:3001
     restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
 
