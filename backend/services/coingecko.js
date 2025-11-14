@@ -75,15 +75,26 @@ async function getHistoricalData(symbol, timeframe = '1d', days = 30) {
     // Map timeframe to days
     const daysMap = {
       '1m': 1,
-      '1h': 7,
-      '1d': days
+      '1h': 1,
+      '1d': 30
     };
-    const requestedDays = daysMap[timeframe] || days;
+    const requestedDays = daysMap[timeframe] || 30;
+
+    // For more granular timeframes, we need to adjust the days parameter
+    // CoinGecko OHLC endpoint has limitations on granularity based on days
+    let daysParam = requestedDays;
+    if (timeframe === '1m') {
+      daysParam = 1; // 1 day for 1-minute granularity
+    } else if (timeframe === '1h') {
+      daysParam = 1; // 1 day for 1-hour granularity
+    } else if (timeframe === '1d') {
+      daysParam = 30; // 30 days for 1-day granularity
+    }
 
     const response = await axios.get(`${BASE_URL}/coins/${symbol.toLowerCase()}/ohlc`, {
       params: {
         vs_currency: 'usd',
-        days: requestedDays
+        days: daysParam
       },
       timeout: 15000,
       validateStatus: (status) => {

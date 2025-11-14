@@ -148,7 +148,7 @@ function Chart() {
   };
 
   const layout = {
-    title: `${symbol.toUpperCase()} - ${timeframe} Chart`,
+    title: `${symbol.toUpperCase()} - ${timeframe === '1m' ? '1 Minute' : timeframe === '1h' ? '1 Hour' : '1 Day'} Chart`,
     xaxis: { title: 'Time' },
     yaxis: { title: 'Price (USD)' },
     hovermode: 'x unified',
