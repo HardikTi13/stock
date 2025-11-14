@@ -1,0 +1,254 @@
+{
+  "info": {
+    "name": "Crypto & Stock Tracker API",
+    "description": "API collection for Crypto & Stock Market Tracker",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3001/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3001",
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Markets",
+      "item": [
+        {
+          "name": "Get Crypto Price",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/api/markets/price/crypto/bitcoin",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["api", "markets", "price", "crypto", "bitcoin"]
+            }
+          }
+        },
+        {
+          "name": "Get Stock Price",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/api/markets/price/stock/AAPL",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["api", "markets", "price", "stock", "AAPL"]
+            }
+          }
+        },
+        {
+          "name": "Get Crypto Historical Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/api/markets/historical/crypto/bitcoin?timeframe=1d&days=7",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["api", "markets", "historical", "crypto", "bitcoin"],
+              "query": [
+                {
+                  "key": "timeframe",
+                  "value": "1d"
+                },
+                {
+                  "key": "days",
+                  "value": "7"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Stock Historical Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/api/markets/historical/stock/AAPL?timeframe=1d",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["api", "markets", "historical", "stock", "AAPL"],
+              "query": [
+                {
+                  "key": "timeframe",
+                  "value": "1d"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Cryptos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/api/markets/search/crypto?q=bitcoin",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["api", "markets", "search", "crypto"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "bitcoin"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Stocks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/api/markets/search/stock?q=apple",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["api", "markets", "search", "stock"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "apple"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Portfolio",
+      "item": [
+        {
+          "name": "Get Portfolio",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/api/portfolio/user123",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["api", "portfolio", "user123"]
+            }
+          }
+        },
+        {
+          "name": "Buy Asset",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"symbol\": \"BTC\",\n  \"type\": \"crypto\",\n  \"quantity\": 0.1,\n  \"price\": 50000\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/api/portfolio/user123/buy",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["api", "portfolio", "user123", "buy"]
+            }
+          }
+        },
+        {
+          "name": "Sell Asset",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"symbol\": \"BTC\",\n  \"type\": \"crypto\",\n  \"quantity\": 0.05,\n  \"price\": 55000\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/api/portfolio/user123/sell",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["api", "portfolio", "user123", "sell"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Leaderboard",
+      "item": [
+        {
+          "name": "Get Leaderboard",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/api/leaderboard?limit=100",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["api", "leaderboard"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "100"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Leaderboard Entry",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"user123\",\n  \"username\": \"TraderJoe\",\n  \"totalValue\": 50000,\n  \"change24h\": 2.5\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/api/leaderboard/update",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["api", "leaderboard", "update"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+
