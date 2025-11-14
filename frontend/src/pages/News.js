@@ -34,14 +34,14 @@ function News() {
     setError('');
     
     try {
-      const apiKey = '69179efe6deee0.12540297';
-      const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&q=${encodeURIComponent(searchTerm)}&language=en&category=business`;
+      const apiKey = '3191cf14abbb4d27bc2b2403f6ccf54f';
+      const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(searchTerm)}&sortBy=publishedAt&language=en&apiKey=${apiKey}`;
       
       const response = await fetch(url);
       const data = await response.json();
       
-      if (data.status === 'success' && data.results) {
-        setNews(data.results);
+      if (data.status === 'ok' && data.articles) {
+        setNews(data.articles);
       } else {
         setError(data.message || 'Failed to fetch news');
       }
@@ -164,11 +164,11 @@ function News() {
           {news.map((article, index) => (
             <Grid item xs={12} md={6} key={index}>
               <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                {article.image_url && (
+                {article.urlToImage && (
                   <CardMedia
                     component="img"
                     height="200"
-                    image={article.image_url}
+                    image={article.urlToImage}
                     alt={article.title}
                     sx={{ objectFit: 'cover' }}
                     onError={(e) => {
@@ -185,16 +185,16 @@ function News() {
                   </Typography>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
                     <Typography variant="caption" color="text.secondary">
-                      {formatDate(article.pubDate)}
+                      {formatDate(article.publishedAt)}
                     </Typography>
-                    {article.source_id && (
-                      <Chip label={article.source_id} size="small" variant="outlined" />
+                    {article.source?.name && (
+                      <Chip label={article.source.name} size="small" variant="outlined" />
                     )}
                   </Box>
-                  {article.link && (
+                  {article.url && (
                     <Box sx={{ mt: 2 }}>
                       <MuiLink
-                        href={article.link}
+                        href={article.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         underline="hover"
